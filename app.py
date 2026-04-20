@@ -1138,8 +1138,23 @@ def main():
                                     comparison = compare_predictions(result, groq_result)
                                     st.session_state.groq_result = groq_result
                                     st.session_state.comparison = comparison
+                                except ImportError as e:
+                                    st.warning(f"⚠️ Groq library not installed: {e}")
+                                    st.info("Install with: pip install groq")
+                                    st.session_state.groq_result = None
+                                    st.session_state.comparison = None
+                                except ValueError as e:
+                                    st.warning(f"⚠️ Groq API key not configured: {e}")
+                                    st.info("Add GROQ_API_KEY to your .env file")
+                                    st.session_state.groq_result = None
+                                    st.session_state.comparison = None
                                 except Exception as e:
-                                    st.warning(f"⚠️ Groq prediction failed: {e}")
+                                    # More detailed error logging
+                                    import traceback
+                                    error_details = traceback.format_exc()
+                                    st.error(f"❌ Groq API failed: {str(e)}")
+                                    with st.expander("Error Details"):
+                                        st.code(error_details)
                                     st.session_state.groq_result = None
                                     st.session_state.comparison = None
                         else:
