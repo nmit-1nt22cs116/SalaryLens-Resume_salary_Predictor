@@ -13,13 +13,20 @@ Features:
 - Job search based on location and skills (powered by SerpAPI)
 - Beautiful dark-themed UI
 """
+
 import streamlit as st
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PAGE CONFIG (must be FIRST Streamlit call)
+# ─────────────────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="SalaryLens – Resume Salary Predictor",
     page_icon="💼",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+
+# Now import other modules
 import pandas as pd
 import numpy as np
 import joblib
@@ -33,11 +40,6 @@ try:
     load_dotenv()  # Load GROQ_API_KEY and other variables from .env
 except ImportError:
     pass  # python-dotenv not installed, will use system env vars
-
-# ─────────────────────────────────────────────────────────────────────────────
-# PAGE CONFIG (must be first Streamlit call)
-# ─────────────────────────────────────────────────────────────────────────────
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CUSTOM CSS
