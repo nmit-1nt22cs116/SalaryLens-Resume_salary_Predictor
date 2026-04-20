@@ -13,10 +13,13 @@ Features:
 - Job search based on location and skills (powered by SerpAPI)
 - Beautiful dark-themed UI
 """
-
 import streamlit as st
-
-st.set_page_config(page_title="SalaryLens")
+st.set_page_config(
+    page_title="SalaryLens – Resume Salary Predictor",
+    page_icon="💼",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 import pandas as pd
 import numpy as np
 import joblib
@@ -34,12 +37,7 @@ except ImportError:
 # ─────────────────────────────────────────────────────────────────────────────
 # PAGE CONFIG (must be first Streamlit call)
 # ─────────────────────────────────────────────────────────────────────────────
-st.set_page_config(
-    page_title="SalaryLens – Resume Salary Predictor",
-    page_icon="💼",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CUSTOM CSS
