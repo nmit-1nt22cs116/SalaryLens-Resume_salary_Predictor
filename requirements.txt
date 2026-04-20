@@ -7,6 +7,7 @@ joblib==1.4.2              # Latest stable
 PyPDF2==3.0.1              # Stable PDF parsing
 python-docx==1.1.2         # Latest DOCX support
 groq==0.11.0               # Latest Groq API
+httpx==0.27.0
 google-search-results==2.4.2  # SerpAPI
 python-dotenv==1.0.1       # Environment variables
 rich==13.9.4               # Compatible with Streamlit
