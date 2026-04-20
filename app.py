@@ -19,12 +19,17 @@ import streamlit as st
 # ─────────────────────────────────────────────────────────────────────────────
 # PAGE CONFIG (must be FIRST Streamlit call)
 # ─────────────────────────────────────────────────────────────────────────────
-st.set_page_config(
-    page_title="SalaryLens – Resume Salary Predictor",
-    page_icon="💼",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
+# Only call set_page_config if not already configured (prevents deployment errors)
+try:
+    st.set_page_config(
+        page_title="SalaryLens – Resume Salary Predictor",
+        page_icon="💼",
+        layout="wide",
+        initial_sidebar_state="collapsed",
+    )
+except st.errors.StreamlitAPIException:
+    # Already configured, skip (happens on Streamlit Cloud)
+    pass
 
 # Now import other modules
 import pandas as pd
@@ -1151,9 +1156,18 @@ def main():
                                 except Exception as e:
                                     # More detailed error logging
                                     import traceback
+                                    error_msg = str(e)
                                     error_details = traceback.format_exc()
-                                    st.error(f"❌ Groq API failed: {str(e)}")
-                                    with st.expander("Error Details"):
+                                    
+                                    # Check if it's actually a Streamlit error
+                                    if "set_page_config" in error_msg:
+                                        st.error("❌ Streamlit Configuration Error")
+                                        st.warning("This error is NOT from Groq API. It's a Streamlit caching issue.")
+                                        st.info("**Fix:** Clear Streamlit cache and restart:\n```\nstreamlit cache clear\n```")
+                                    else:
+                                        st.error(f"❌ Groq API Error: {error_msg}")
+                                    
+                                    with st.expander("🔍 Full Error Details (for debugging)"):
                                         st.code(error_details)
                                     st.session_state.groq_result = None
                                     st.session_state.comparison = None
