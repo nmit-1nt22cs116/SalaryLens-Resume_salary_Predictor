@@ -105,11 +105,19 @@ html, body, [class*="css"] {
     font-size: 3.2rem !important;
     font-weight: 800 !important;
     line-height: 1.1 !important;
+    color: #e8eaf0 !important; /* Fallback color */
     background: linear-gradient(135deg, #e8eaf0 30%, #7c9ef5 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 0.7rem !important;
+}
+/* Fallback for browsers that don't support background-clip */
+@supports not (background-clip: text) {
+    .hero h1 {
+        color: #e8eaf0 !important;
+        -webkit-text-fill-color: #e8eaf0 !important;
+    }
 }
 .hero p {
     color: var(--muted);
